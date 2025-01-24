@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Calculadora de Distância e Custo</title>
+</head>
+<body>
+    <h1>Calculadora de Distância e Custo</h1>
+    
+    <form method="POST">
+        <div>
+            <label for="origem">Origem:</label>
+            <input type="text" id="origem" name="origem" placeholder="Digite o endereço de origem" required>
+        </div>
+        <div>
+            <label for="destino">Destino:</label>
+            <input type="text" id="destino" name="destino" placeholder="Digite o endereço de destino" required>
+        </div>
+        <div>
+            <label for="marca">Marca:</label>
+            <select id="marca" name="marca" required>
+                <option value="" disabled selected>Selecione uma marca</option>
+                {% for marca in marcas %}
+                    <option value="{{ marca['codigo'] }}">{{ marca['nome'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="modelo">Modelo:</label>
+            <select id="modelo" name="modelo" required>
+                <option value="" disabled selected>Selecione um modelo</option>
+            </select>
+        </div>
+        <div>
+            <label for="ano">Ano:</label>
+            <select id="ano" name="ano" required>
+                <option value="" disabled selected>Selecione o ano</option>
+            </select>
+        </div>
+        <div>
+            <label for="consumo">Consumo (km/l):</label>
+            <input type="number" id="consumo" name="consumo" step="0.1" placeholder="Ex: 12.5" required>
+        </div>
+        <div>
+            <label for="combustivel">Valor do combustível (R$/litro):</label>
+            <input type="number" id="combustivel" name="combustivel" step="0.01" placeholder="Ex: 5.49" required>
+        </div>
+        <button type="submit">Calcular</button>
+        <button type="button" id="novaConsulta">Nova Consulta</button>
+    </form>
+
+    {% if error %}
+        <div class="erro">
+            <p style="color: red;">Erro: {{ error }}</p>
+        </div>
+    {% endif %}
+
+    {% if distancia and custo %}
+        <div class="resultados">
+            <h2>Resultados:</h2>
+            <p>Distância: {{ distancia }} km</p>
+            <p>Custo estimado: R$ {{ custo|round(2) }}</p>
+        </div>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
