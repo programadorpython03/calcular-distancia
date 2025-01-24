@@ -4,15 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <title>Calculadora de Distância e Custo</title>
 </head>
 <body>
+    <!-- Título principal -->
     <h1>Calculadora de Distância e Custo</h1>
-    
+
+    <!-- Formulário principal -->
     <form method="POST">
+
+        <!-- Alterador de tema -->
+        <div class="theme-switcher">
+            <label class="theme-toggle">
+                <input type="checkbox" id="toggleTheme">
+                <span class="slider"></span>
+                <i class="fas fa-moon moon-icon"></i>
+                <i class="fas fa-sun sun-icon"></i>
+            </label>
+            <span style="font-size: 14px; color: var(--text-color) margin: 13px auto;">Altere o tema para escuro</span>
+        </div>
+
         <div>
             <label for="origem">Origem:</label>
             <input type="text" id="origem" name="origem" placeholder="Digite o endereço de origem" required>
@@ -54,12 +68,14 @@
         <button type="button" id="novaConsulta">Nova Consulta</button>
     </form>
 
+    <!-- Mensagens de erro -->
     {% if error %}
         <div class="erro">
             <p style="color: red;">Erro: {{ error }}</p>
         </div>
     {% endif %}
 
+    <!-- Resultados -->
     {% if distancia and custo %}
         <div class="resultados">
             <h2>Resultados:</h2>
@@ -68,6 +84,7 @@
         </div>
     {% endif %}
 
+    <!-- Scripts -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
